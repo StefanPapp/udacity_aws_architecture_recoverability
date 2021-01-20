@@ -1,0 +1,4 @@
+Minimum RTO for a single AZ outage: 0 If a AZ is down, the second AZ gets active.
+Minimum RTO for a single region outage: 0 If a region is down, the second regions gets active.
+Minimum RPO for a single AZ outage: 0 If a AZ is down, the second AZ gets active.
+Minimum RPO for a single region outage: 0 If a AZ region down, the second region gets active.
