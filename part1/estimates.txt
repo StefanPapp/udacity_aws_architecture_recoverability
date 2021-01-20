@@ -1,4 +1,12 @@
-Minimum RTO for a single AZ outage: 0 If a AZ is down, the second AZ gets active.
-Minimum RTO for a single region outage: 0 If a region is down, the second regions gets active.
-Minimum RPO for a single AZ outage: 0 If a AZ is down, the second AZ gets active.
-Minimum RPO for a single region outage: 0 If a AZ region down, the second region gets active.
+If we are in a Multi-AZ, multi-region database we have double coverage. This means that the answer is
+
+Minimum RTO for a single AZ outage: 0 minutes.
+Minimum RTO for a single region outage: 0 minutes.
+Minimum RPO for a single AZ outage: 0 minutes.
+Minimum RPO for a single region outage: 0 minutes.
+
+If one AZ is down, the active db continues to use the second AZ. So this should be no problem at all for RTO and RPO.
+If one region is down and the data is other regions, also no data is lost as the data is synced to the other region.
+
+Dependending on the application and how the application is implemented that is accessing the the database, there might
+be a delay with switching the region, but that is in a way out of scope.

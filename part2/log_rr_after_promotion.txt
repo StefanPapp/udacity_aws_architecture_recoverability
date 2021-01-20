@@ -1,0 +1,2 @@
+MySQL [udacity]> INSERT INTO tutorials_tbl (tutorial_title, tutorial_author, submission_date) VALUES   (NULL, NULL, NULL);
+Query OK, 1 row affected, 1 warning (0.01 sec)
