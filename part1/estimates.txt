@@ -1,3 +1,5 @@
+Please find the latest answer in additional/estimates.txt
+
 If we are in a Multi-AZ, multi-region database we have double coverage. This means that the answer is
 
 Minimum RTO for a single AZ outage: 0 minutes.
@@ -10,3 +12,4 @@ If one region is down and the data is other regions, also no data is lost as the
 
 Dependending on the application and how the application is implemented that is accessing the the database, there might
 be a delay with switching the region, but that is in a way out of scope.
+
