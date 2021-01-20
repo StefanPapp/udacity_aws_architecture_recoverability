@@ -1,0 +1,39 @@
+In my last submission, I claimed that outages do not affect RTO/RPO.
+
+One elaboration on my thoughts. To define an availability of a system, you should not focus on database alone.
+So, if you store want to store data in a database, it depends strongly from the incoming data. Some data can be cached by application until the database is fully available again.
+
+
+I however want to revise my initial investigation.
+
+# Secondary database outages
+If the secondary region or AZ in the second region goes down, it does not affect RTO and RPO of the database. Therefore, we talk about outages in region or AZ of the primary rds.
+
+# AZ outage
+If the primary AZ fails, according to AWS Fail Over times are 60–120 seconds. In special queries (large transactions), it can be more
+
+This means the RTO (time data is not available) and RPO (Data can get lost) can be 60 to 120 seconds. Depend the appropriate
+application logic, 60 to 120 might be enough to buffer write requests in a cache, but if the data is not in the cache
+for reading, you cannot access it.
+
+RTO: 60 to 120
+RPO: Depends on application design, if data is cachable and will not purged at non successful rights, you can minimize RPO
+to 0. Else it is 60 to 120 as well.
+
+# Region outage
+If the primary region is gone, the secondary region needs to promoted manually. The promotion itself takes up to 10 minutes.
+
+The total duration depends on the process and the grade of automation. There can be a heartbeat services running that
+automatically promotes a secondary RDS. Important systems are monitored by a operations team and it is unlikely
+that someone needs to be woken up as given in some scenarios.
+
+In addition, I want to highlight that we have also options with Route53 to verify if a region is healthy or not.
+
+If the application is written in a way that data is lost if it cannot be written to the DB, it is 10 minutes. Also Here
+we are depending on application design.
+
+One extremely unlikely scenario is that one region is completely destroyed. This means all the data that has
+not been yet replicated to the second region would be gone.
+
+RTO: 10 to 20 Minutes (assuming there is a health check and the monitoring is triggered early)
+RPO: 10 to 20 Minutes (if the applications that writes data to the platform does not cache data)
